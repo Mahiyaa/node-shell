@@ -4,12 +4,9 @@ const prompt = chalk.blue('\nprompt > ');
 
 //output a prompt
 process.stdout.write(prompt);
-
-
-
 // STDIN `data` event fires after a user types in a line (inc. newline)
 process.stdin.on('data', function (data) { // data is a Buffer
-  cmdGroups = data.toString().trim().split(/\s*\|\s*/g); // separate by pipe
+  let cmdGroups = data.toString().trim().split(/\s*\|\s*/g); // separate by pipe
   const unsafeCommands = getUnsafeCommands(cmdGroups);
   if (unsafeCommands.length) {
     process.stderr.write('command(s) not found: ' + unsafeCommands.join(' '));
@@ -40,5 +37,5 @@ function done (stdout) {
     execute(cmdGroups.shift(), stdout); // execute the next command-arg set
   } else {
     process.stdout.write(stdout + prompt);
-  }
+  } 
 }
